@@ -9,6 +9,7 @@
  * Implements hook_requirements().
  */
 function sparql_entity_storage_requirements($phase) {
+return [];
   $requirements = [];
   if ($phase !== 'runtime') {
     return $requirements;

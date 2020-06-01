@@ -309,7 +309,7 @@ class SparqlEntityStorage extends ContentEntityStorageBase implements SparqlEnti
     $graphs = $this->getGraphHandler()->getEntityTypeGraphUrisFlatList($this->getEntityTypeId());
     $named_graph = '';
     foreach ($graphs as $graph) {
-      $named_graph .= 'FROM NAMED ' . SparqlArg::uri($graph) . "\n";
+     // $named_graph .= 'FROM NAMED ' . SparqlArg::uri($graph) . "\n";
     }
 
     // @todo Get rid of the language filter. It's here because of eurovoc:
@@ -320,10 +320,8 @@ class SparqlEntityStorage extends ContentEntityStorageBase implements SparqlEnti
 SELECT ?graph ?entity_id ?predicate ?field_value
 {$named_graph}
 WHERE{
-  GRAPH ?graph {
     ?entity_id ?predicate ?field_value .
     VALUES ?entity_id { {$ids_string} } .
-  }
 }
 QUERY;
 
@@ -452,7 +450,7 @@ QUERY;
     $values_per_entity = [];
     foreach ($results as $result) {
       $entity_id = (string) $result->entity_id;
-      $entity_graphs[$entity_id] = (string) $result->graph;
+      $entity_graphs[$entity_id] = 'http://default/';
 
       $lang = LanguageInterface::LANGCODE_DEFAULT;
       if ($result->field_value instanceof Literal) {
@@ -461,7 +459,7 @@ QUERY;
           $lang = $lang_temp;
         }
       }
-      $values_per_entity[$entity_id][(string) $result->graph][(string) $result->predicate][$lang][] = (string) $result->field_value;
+      $values_per_entity[$entity_id]['http://default/'][(string) $result->predicate][$lang][] = (string) $result->field_value;
     }
 
     return $values_per_entity;

@@ -48,19 +48,15 @@ class SparqlSerializer implements SparqlSerializerInterface {
     $entity_id = $entity->id();
 
     $query = <<<Query
-SELECT ?s ?p ?o 
+SELECT ?s ?p ?o
 WHERE {
   {
-    GRAPH <{$graph_uri}> {
       ?s ?p ?o .
       VALUES ?s { <{$entity_id}> } .
-    }
   }
   UNION {
-    GRAPH <{$graph_uri}> {
       ?s ?p ?o .
       VALUES ?o { <{$entity_id}> } .
-    }
   }
 }
 ORDER BY ?s, ?p, ?o

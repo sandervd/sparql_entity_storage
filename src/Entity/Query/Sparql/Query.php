@@ -188,7 +188,7 @@ class Query extends QueryBase implements SparqlQueryInterface {
     }
     $graph_uris = $this->graphHandler->getEntityTypeGraphUrisFlatList($this->getEntityTypeId(), $this->graphIds);
     foreach ($graph_uris as $graph_uri) {
-      $this->query .= "FROM <$graph_uri>\n";
+      //$this->query .= "FROM <$graph_uri>\n";
     }
 
     return $this;

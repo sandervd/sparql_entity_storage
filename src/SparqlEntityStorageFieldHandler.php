@@ -369,6 +369,7 @@ class SparqlEntityStorageFieldHandler implements SparqlEntityStorageFieldHandler
   public function getInboundBundleValue(string $entity_type_id, string $bundle_uri): array {
     $inbound_map = $this->getInboundMap($entity_type_id);
     if (empty($inbound_map['bundles'][$bundle_uri])) {
+      return [];
       throw new \Exception("A bundle mapped to <$bundle_uri> was not found.");
     }
 

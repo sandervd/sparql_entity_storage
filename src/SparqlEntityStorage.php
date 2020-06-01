@@ -484,7 +484,9 @@ QUERY;
     foreach ($this->bundlePredicate as $bundle_predicate) {
       if (isset($entity_values[$bundle_predicate])) {
         $bundle_data = $entity_values[$bundle_predicate];
-        $bundles += $this->fieldHandler->getInboundBundleValue($this->entityTypeId, $bundle_data[LanguageInterface::LANGCODE_DEFAULT][0]);
+        foreach ($bundle_data[LanguageInterface::LANGCODE_DEFAULT] as $type) {
+          $bundles += $this->fieldHandler->getInboundBundleValue($this->entityTypeId, $type);
+        }
       }
     }
     if (empty($bundles)) {

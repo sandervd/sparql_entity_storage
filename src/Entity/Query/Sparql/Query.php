@@ -218,7 +218,13 @@ class Query extends QueryBase implements SparqlQueryInterface {
     }
 
     $this->condition->compile($this);
-    $this->query .= "WHERE {\n" . $this->condition->toString() . "\n}";
+    if ($this->count) {
+      $this->query .= "WHERE {\nSELECT DISTINCT ?entity\n WHERE {" . $this->condition->toString() . "\n}\n}";
+    }
+    else {
+      $this->query .= "WHERE {\n" . $this->condition->toString() . "\n}";
+    }
+
     return $this;
   }
 
